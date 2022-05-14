@@ -10,7 +10,7 @@ const Form = () => {
                 <h1 className='text-primary font-bold text-2xl text-center'>Contact us</h1>
                 <h2 className='font-serif text-white  text-4xl text-center mb-5'>Stay connected with us</h2>
                 <div className='text-center'>
-                    <input type="text" placeholder="Email" className="input input-bordered input-md w-full max-w-xs mb-5" />
+                    <input type="email" placeholder="Email" className="input input-bordered input-md w-full max-w-xs mb-5" />
                     <br />
                     <input type="text" placeholder="Subject" className="input input-bordered input-md w-full max-w-xs mb-5" />
                     <br />
