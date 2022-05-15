@@ -1,19 +1,71 @@
 import React from 'react';
-import { format } from 'date-fns';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { format } from 'date-fns';
 import auth from '../../firebase.init';
+import Swal from 'sweetalert2';
+import { toast } from 'react-toastify';
 
 const BookingModal = ({ date, treatment, setTreatment }) => {
+    // const Swal = require('sweetalert2')
     const { _id, name, slots } = treatment;
     const [user, loading, error] = useAuthState(auth);
+    const formattedDate = format(date, 'PP');
+
+   /* const handleSubmit = () => {
+        Swal.fire(
+            'Thank you for the Booking!!',
+            'Your appointment is fixed. See You there.',
+            'success'
+        )
+        onClick={handleSubmit}
+    }*/
 
     const handleBooking = event => {
         event.preventDefault();
         const slot = event.target.slot.value;
-        console.log(_id, name, slot);
 
-        // to close the modal
-        setTreatment(null);
+
+        const booking = {
+            treatmentId: _id,
+            treatment: name,
+            date: formattedDate,
+            slot,
+            patient: user.email,
+            patientName: user.displayName,
+            phone: event.target.phone.value
+        }
+
+        fetch('http://localhost:5000/booking', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(booking)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if(data.success){
+                    //  toast(`Appointment is set, ${formattedDate} at ${slot}`)
+
+                    Swal.fire(
+                        'Thank you for the Booking!!',
+                        `Your appointment is set for, ${formattedDate} at ${slot} . See you there.`,
+                        'success'
+                    )
+                }
+                else{
+                   
+                    Swal.fire({
+                        icon: 'error',
+                        title: `No slots are available, ${data.booking?.date} at ${data.booking?.slot}`,
+                        text: 'Please try on another Slot!'
+                       })
+                }
+                // to close the modal
+                setTreatment(null);
+            })
+
     }
 
     return (
@@ -37,7 +89,8 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
                         <input type="text" name="name" disabled value={user?.displayName || ''} className="input input-bordered w-full max-w-xs" />
                         <input type="email" name="email" disabled value={user?.email || ''} className="input input-bordered w-full max-w-xs" />
                         <input type="text" name="phone" placeholder="Phone Number" className="input input-bordered w-full max-w-xs" />
-                        <input type="submit" value="Submit" className="btn btn-secondary w-full max-w-xs" />
+                        {/* <input type="submit" value="Fix Appointment" className="btn btn-secondary w-full max-w-xs" /> */}
+                        { <button  className="btn btn-secondary w-full max-w-xs" >Confirm Appointment</button> }
                     </form>
                 </div>
             </div>
