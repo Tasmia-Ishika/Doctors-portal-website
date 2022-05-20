@@ -3,22 +3,14 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { format } from 'date-fns';
 import auth from '../../firebase.init';
 import Swal from 'sweetalert2';
-import { toast } from 'react-toastify';
 
-const BookingModal = ({ date, treatment, setTreatment }) => {
-    // const Swal = require('sweetalert2')
+
+const BookingModal = ({ date, treatment, setTreatment, refetch }) => {
+   
     const { _id, name, slots } = treatment;
     const [user, loading, error] = useAuthState(auth);
     const formattedDate = format(date, 'PP');
 
-   /* const handleSubmit = () => {
-        Swal.fire(
-            'Thank you for the Booking!!',
-            'Your appointment is fixed. See You there.',
-            'success'
-        )
-        onClick={handleSubmit}
-    }*/
 
     const handleBooking = event => {
         event.preventDefault();
@@ -44,9 +36,8 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 if(data.success){
-                    //  toast(`Appointment is set, ${formattedDate} at ${slot}`)
+                 
 
                     Swal.fire(
                         'Thank you for the Booking!!',
@@ -63,6 +54,7 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
                        })
                 }
                 // to close the modal
+                refetch()
                 setTreatment(null);
             })
 
