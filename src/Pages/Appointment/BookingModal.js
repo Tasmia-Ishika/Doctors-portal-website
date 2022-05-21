@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 
 
 const BookingModal = ({ date, treatment, setTreatment, refetch }) => {
-   
+
     const { _id, name, slots, price } = treatment;
     const [user, loading, error] = useAuthState(auth);
     const formattedDate = format(date, 'PP');
@@ -27,7 +27,7 @@ const BookingModal = ({ date, treatment, setTreatment, refetch }) => {
             phone: event.target.phone.value
         }
 
-        fetch('http://localhost:5000/booking', {
+        fetch('https://fathomless-ridge-41049.herokuapp.com/booking', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -36,8 +36,8 @@ const BookingModal = ({ date, treatment, setTreatment, refetch }) => {
         })
             .then(res => res.json())
             .then(data => {
-                if(data.success){
-                 
+                if (data.success) {
+
 
                     Swal.fire(
                         'Thank you for the Booking!!',
@@ -45,13 +45,13 @@ const BookingModal = ({ date, treatment, setTreatment, refetch }) => {
                         'success'
                     )
                 }
-                else{
-                   
+                else {
+
                     Swal.fire({
                         icon: 'error',
                         title: `No slots are available, ${data.booking?.date} at ${data.booking?.slot}`,
                         text: 'Please try on another Slot!'
-                       })
+                    })
                 }
                 // to close the modal
                 refetch()
@@ -82,7 +82,7 @@ const BookingModal = ({ date, treatment, setTreatment, refetch }) => {
                         <input type="email" name="email" disabled value={user?.email || ''} className="input input-bordered w-full max-w-xs" />
                         <input type="text" name="phone" placeholder="Phone Number" className="input input-bordered w-full max-w-xs" />
                         {/* <input type="submit" value="Fix Appointment" className="btn btn-secondary w-full max-w-xs" /> */}
-                        { <button  className="btn btn-secondary w-full max-w-xs" >Confirm Appointment</button> }
+                        {<button className="btn btn-secondary w-full max-w-xs" >Confirm Appointment</button>}
                     </form>
                 </div>
             </div>

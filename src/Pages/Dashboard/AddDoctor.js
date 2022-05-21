@@ -7,7 +7,7 @@ import Loading from '../Shared/Loading';
 const AddDoctor = () => {
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
 
-    const { data: services, isLoading } = useQuery('services', () => fetch('http://localhost:5000/service').then(res => res.json()))
+    const { data: services, isLoading } = useQuery('services', () => fetch('https://fathomless-ridge-41049.herokuapp.com/service').then(res => res.json()))
     const imageStorageKey = '5d8d36463ced5b7184ed2ea2a14d6ada';
 
     /**
@@ -39,7 +39,7 @@ const AddDoctor = () => {
                         img: img
                     }
                     // send to your database
-                    fetch('http://localhost:5000/doctor', {
+                    fetch('https://fathomless-ridge-41049.herokuapp.com/doctor', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',
@@ -49,11 +49,11 @@ const AddDoctor = () => {
                     })
                         .then(res => res.json())
                         .then(inserted => {
-                            if(inserted.insertedId){
+                            if (inserted.insertedId) {
                                 toast.success('Doctor added successfully')
                                 reset();
                             }
-                            else{
+                            else {
                                 toast.error('Failed to add the doctor');
                             }
                         })

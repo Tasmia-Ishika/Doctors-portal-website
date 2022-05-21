@@ -13,7 +13,7 @@ const CheckoutForm = ({ appointment }) => {
     const { _id, price, patient, patientName } = appointment;
 
     useEffect(() => {
-        fetch('http://localhost:5000/create-payment-intent', {
+        fetch('https://fathomless-ridge-41049.herokuapp.com/create-payment-intent', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
@@ -79,7 +79,7 @@ const CheckoutForm = ({ appointment }) => {
                 appointment: _id,
                 transactionId: paymentIntent.id,
             }
-            fetch(`http://localhost:5000/booking/${_id}`, {
+            fetch(`https://fathomless-ridge-41049.herokuapp.com/booking/${_id}`, {
                 method: 'PATCH',
                 headers: {
                     'content-type': 'application/json',
@@ -125,7 +125,7 @@ const CheckoutForm = ({ appointment }) => {
                 cardError && <p className='text-red-500'>{cardError}</p>
             }
 
-{
+            {
                 success && <div className='text-green-500 font-bold text-lg'>
                     <p>{success}  </p>
                     <p>Your transaction Id: <span className="text-purple-600 font-bold">{transactionId}</span> </p>

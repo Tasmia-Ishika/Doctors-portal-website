@@ -5,7 +5,7 @@ const DeleteConfirmModal = ({ deletingDoctor, refetch, setDeletingDoctor }) => {
     const { name, email } = deletingDoctor;
 
     const handleDelete = () => {
-        fetch(`http://localhost:5000/doctor/${email}`, {
+        fetch(`https://fathomless-ridge-41049.herokuapp.com/doctor/${email}`, {
             method: 'DELETE',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`
@@ -17,7 +17,7 @@ const DeleteConfirmModal = ({ deletingDoctor, refetch, setDeletingDoctor }) => {
                 console.log(data)
                 if (data.deletedCount) {
                     toast.success(`Doctor: ${name} id deleted`);
-                    setDeletingDoctor=(null);
+                    setDeletingDoctor = (null);
                     refetch();
                 }
             })
@@ -31,7 +31,7 @@ const DeleteConfirmModal = ({ deletingDoctor, refetch, setDeletingDoctor }) => {
                     <h3 class="font-bold text-3xl text-red-600">Are you sure you want to delete {name}?</h3>
                     <p class="py-4">{name} will no longer be able to get any update from Doctors Portal!!</p>
                     <div class="modal-action">
-                    <button onClick={() => handleDelete()} class="btn btn-xs btn-error">Delete</button>
+                        <button onClick={() => handleDelete()} class="btn btn-xs btn-error">Delete</button>
                         <label for="delete-confirm-modal" class="btn btn-xs">Cancel</label>
                     </div>
                 </div>

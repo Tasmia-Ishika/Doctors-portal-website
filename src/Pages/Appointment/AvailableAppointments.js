@@ -10,14 +10,14 @@ const AvailableAppointments = ({ date }) => {
     const [treatment, setTreatment] = useState(null);
     const formattedDate = format(date, 'PP');
     // const formattedDate = format(date, 'PP');
-    const { data: services, isLoading, refetch } = useQuery(['available', formattedDate], () => fetch(`http://localhost:5000/available?date=${formattedDate}`).then(res => res.json()
-        ))
+    const { data: services, isLoading, refetch } = useQuery(['available', formattedDate], () => fetch(`https://fathomless-ridge-41049.herokuapp.com/available?date=${formattedDate}`).then(res => res.json()
+    ))
 
     if (isLoading) {
         return <Loading></Loading>
     }
     /*useEffect(() => {
-         fetch(`http://localhost:5000/available?date=${formattedDate}`)
+         fetch(`https://fathomless-ridge-41049.herokuapp.com/available?date=${formattedDate}`)
              .then(res => res.json())
           .then(data => setServices(data))
      }, [formattedDate])*/
@@ -35,7 +35,7 @@ const AvailableAppointments = ({ date }) => {
             </div>
             {
                 treatment && <BookingModal date={date} treatment={treatment} setTreatment={setTreatment}
-                refetch={refetch}
+                    refetch={refetch}
                 ></BookingModal>
             }
         </div>

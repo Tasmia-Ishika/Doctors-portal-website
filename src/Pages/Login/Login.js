@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import Google  from '../../assets/icons/google.png';
 import auth from '../../firebase.init';
 import { useForm } from "react-hook-form";
 import Loading from '../Shared/Loading';
@@ -16,7 +17,7 @@ const Login = () => {
         error,
     ] = useSignInWithEmailAndPassword(auth);
 
-const [token] = useToken(user || gUser)
+    const [token] = useToken(user || gUser)
 
     let signInError;
     const navigate = useNavigate();
@@ -104,10 +105,13 @@ const [token] = useToken(user || gUser)
                     </form>
                     <p><small>New to Doctors Portal?  <Link className='text-primary font-bold' to="/signup">Create New Account</Link></small></p>
                     <div className="divider">OR</div>
+
                     <button
                         onClick={() => signInWithGoogle()}
-                        className="btn btn-outline"
-                    >Continue with Google</button>
+                        className="btn  btn-outline"
+                    ><img style={{ width: '30px' }} src={Google} alt="" /><span className='px-2'> Continue with Google</span> 
+                    </button>
+
                 </div>
             </div>
         </div >
