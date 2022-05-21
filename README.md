@@ -1,6 +1,6 @@
 # Doctor's Portal Website
 
-Check out live website.[Click here](https://github.com/facebook/create-react-app).
+Check out live website.[Click here](https://doctors-portal-57b33.web.app).
 
 ## Features of Doctor's Portal
 
